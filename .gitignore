@@ -2,3 +2,5 @@ ext_libs/
 *.pyc
 GPlayCli.egg-info
 *.swp
+build
+dist
