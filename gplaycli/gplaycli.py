@@ -187,7 +187,7 @@ class GPlaycli(object):
                                                        "try to search it via --search before"))
         except Exception as exc:
             print("Error while downloading %s : %s" % (pkg, exc))
-            return False
+            return False, None
         else:
             filename = pkg + ".apk"
             filepath = os.path.join(download_folder_path, filename)
@@ -206,7 +206,7 @@ class GPlaycli(object):
                         open(obb_filename, "wb").write(obb_file["data"])
             except IOError as exc:
                 print("Error while writing %s : %s" % (pkg, exc))
-        return True
+        return True, filepath
 
     def raw_search(self, search_string, nb_results):
         # Query results
