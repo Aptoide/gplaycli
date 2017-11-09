@@ -128,8 +128,6 @@ class GPlaycli(object):
             print('Token dispenser server error')
             sys.exit(ERRORS.TOKEN_DISPENSER_SERVER_ERROR)
         token, gsfid = resp.text.split(" ")
-        logging.info("Token: %s", token)
-        logging.info("GSFId: %s", gsfid)
         self.token = token
         self.gsfid = gsfid
         self.write_cached_token(token, gsfid)
