@@ -183,6 +183,20 @@ class GPlaycli(object):
             print("Error while downloading %s : %s" % (pkg,
                                                        "this package does not exist, "
                                                        "try to search it via --search before"))
+            return False, None
+        except LoginError:
+            self.retrieve_token(force_new=True)
+            self.playstore_api.login(authSubToken=self.token, gsfId=int(self.gsfid, 16))
+            try:
+                data_dict = self.playstore_api.download(pkg, version)
+            except IndexError as exc:
+                print("Error while downloading %s : %s" % (pkg,
+                                                           "this package does not exist, "
+                                                           "try to search it via --search before"))
+                return False, None
+            except Exception as exc:
+                print("Error while downloading %s : %s" % (pkg, exc))
+                return False, None
         except Exception as exc:
             print("Error while downloading %s : %s" % (pkg, exc))
             return False, None
@@ -215,6 +229,14 @@ class GPlaycli(object):
             results = self.raw_search(search_string, nb_results)
         except IndexError:
             results = list()
+        except LoginError:
+            self.retrieve_token(force_new=True)
+            self.playstore_api.login(authSubToken=self.token, gsfId=int(self.gsfid, 16))
+            try:
+                results = self.raw_search(search_string, nb_results)
+            except IndexError:
+                results = list()
+
         if not results:
             print("No result")
             return
