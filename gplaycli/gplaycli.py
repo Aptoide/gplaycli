@@ -53,7 +53,7 @@ class ERRORS(IntEnum):
 
 
 class GPlaycli(object):
-    def __init__(self, credentials=None):
+    def __init__(self, credentials=None, proxies=None):
         # no config file given, look for one
         if credentials is None:
             # default local user configs
@@ -68,6 +68,12 @@ class GPlaycli(object):
                 if not tmp_list:
                     raise OSError("No configuration file found at %s" % cred_paths_list)
             credentials = tmp_list[0]
+
+        if proxies:
+            self.proxies = proxies
+            requests.proxies = self.proxies
+        else:
+            self.proxies = None
 
         default_values = dict()
         self.configparser = configparser.ConfigParser(default_values)
@@ -137,7 +143,8 @@ class GPlaycli(object):
         self.config["download_folder_path"] = folder
 
     def connect_to_googleplay_api(self):
-        self.playstore_api = GooglePlayAPI(device_codename=self.device_codename)
+        self.playstore_api = GooglePlayAPI(device_codename=self.device_codename,
+                                           proxies=self.proxies)
         error = None
         email = None
         password = None
