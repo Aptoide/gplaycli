@@ -69,11 +69,7 @@ class GPlaycli(object):
                     raise OSError("No configuration file found at %s" % cred_paths_list)
             credentials = tmp_list[0]
 
-        if proxies:
-            self.proxies = proxies
-            requests.proxies = self.proxies
-        else:
-            self.proxies = None
+        self.proxies = None
 
         default_values = dict()
         self.configparser = configparser.ConfigParser(default_values)
@@ -126,7 +122,7 @@ class GPlaycli(object):
             logging.info("Using cached token.")
             return token, gsfid
         logging.info("Retrieving token ...")
-        resp = requests.get(self.token_url)
+        resp = requests.get(self.token_url, proxies=self.proxies)
         if resp.text == 'Auth error':
             print('Token dispenser auth error, probably too many connections')
             sys.exit(ERRORS.TOKEN_DISPENSER_AUTH_ERROR)
