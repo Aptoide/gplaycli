@@ -240,6 +240,8 @@ class GPlaycli(object):
             except IndexError:
                 results = list()
 
+        logging.info(results)
+                
         if not results:
             print("No result")
             return
@@ -256,7 +258,8 @@ class GPlaycli(object):
                      "app_id": result['docId'],
                      "version": result['versionCode'],
                      "rating": "%.2f" % result["aggregateRating"]["starRating"],
-                     "paid": result['offer'][0]['checkoutFlowRequired']}
+                     "paid": result['offer'][0]['checkoutFlowRequired'],
+                     "stable": not result["unstable"]}
             all_results.append(entry)
 
         for result in all_results:
