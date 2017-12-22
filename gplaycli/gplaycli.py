@@ -140,7 +140,7 @@ class GPlaycli(object):
 
     def connect_to_googleplay_api(self):
         self.playstore_api = GooglePlayAPI(device_codename=self.device_codename,
-                                           proxies=self.proxies)
+                                           proxies_config=self.proxies)
         error = None
         email = None
         password = None
