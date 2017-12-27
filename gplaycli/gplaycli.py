@@ -69,7 +69,7 @@ class GPlaycli(object):
                     raise OSError("No configuration file found at %s" % cred_paths_list)
             credentials = tmp_list[0]
 
-        self.proxies = None
+        self.proxies = proxies
 
         default_values = dict()
         self.configparser = configparser.ConfigParser(default_values)
