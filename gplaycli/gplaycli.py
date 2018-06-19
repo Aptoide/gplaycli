@@ -145,7 +145,7 @@ class GPlaycli(object):
             self.playstore_api = GooglePlayAPI(
                 device_codename=self.device_codename,
                 proxies_config=self.proxies,
-                locale=locale
+                locale=self.locale
             )
         else:
             self.playstore_api = GooglePlayAPI(
