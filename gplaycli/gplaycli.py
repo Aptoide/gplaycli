@@ -53,7 +53,8 @@ class ERRORS(IntEnum):
 
 
 class GPlaycli(object):
-    def __init__(self, credentials=None, proxies=None):
+    def __init__(self, credentials=None, proxies=None, device='bacon',
+                 locale=None):
         # no config file given, look for one
         if credentials is None:
             # default local user configs
@@ -89,7 +90,8 @@ class GPlaycli(object):
         logging.basicConfig()
         self.progress_bar = False
         self.logging_enable = False
-        self.device_codename = 'bacon'
+        self.device_codename = self.device
+        self.locale = self.locale
         self.addfiles_enable = False
 
     def get_cached_token(self):
@@ -139,8 +141,18 @@ class GPlaycli(object):
         self.config["download_folder_path"] = folder
 
     def connect_to_googleplay_api(self):
-        self.playstore_api = GooglePlayAPI(device_codename=self.device_codename,
-                                           proxies_config=self.proxies)
+        if self.locale:
+            self.playstore_api = GooglePlayAPI(
+                device_codename=self.device_codename,
+                proxies_config=self.proxies,
+                locale=locale
+            )
+        else:
+            self.playstore_api = GooglePlayAPI(
+                device_codename=self.device_codename,
+                proxies_config=self.proxies
+            )
+
         error = None
         email = None
         password = None

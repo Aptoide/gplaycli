@@ -4,3 +4,4 @@ GPlayCli.egg-info
 *.swp
 build
 dist
+.idea
