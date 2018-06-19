@@ -90,8 +90,8 @@ class GPlaycli(object):
         logging.basicConfig()
         self.progress_bar = False
         self.logging_enable = False
-        self.device_codename = self.device
-        self.locale = self.locale
+        self.device_codename = device
+        self.locale = locale
         self.addfiles_enable = False
 
     def get_cached_token(self):
