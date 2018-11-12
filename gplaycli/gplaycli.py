@@ -124,7 +124,7 @@ class GPlaycli(object):
             logging.info("Using cached token.")
             return token, gsfid
         logging.info("Retrieving token ...")
-        resp = requests.get(self.token_url, proxies=self.proxies)
+        resp = requests.get(self.token_url)
         if resp.text == 'Auth error':
             print('Token dispenser auth error, probably too many connections')
             sys.exit(ERRORS.TOKEN_DISPENSER_AUTH_ERROR)
